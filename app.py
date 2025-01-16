@@ -1,4 +1,9 @@
+from flask import Flask, request, jsonify, render_template
 import google.generativeai as genai
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
 
 class GovSchemesBot:
     def __init__(self, api_key):
@@ -6,7 +11,7 @@ class GovSchemesBot:
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel("gemini-1.5-flash")
         
-        # Base context for the chatbot
+        # Base context remains the same
         self.base_context = """
         You are a specialized chatbot that provides information about government schemes and aid programs in India to the user. 
         Your role is to:
@@ -49,7 +54,6 @@ class GovSchemesBot:
         - Outdated scheme information
         """
         
-        # List of restricted topics
         self.restricted_topics = [
             "election",
             "political party",
@@ -64,52 +68,53 @@ class GovSchemesBot:
             "academic help"
         ]
 
-    def is_restricted_topic(self, user_input):
-        """Check if the user input contains restricted topics"""
-        return any(topic.lower() in user_input.lower() for topic in self.restricted_topics)
-
     def generate_response(self, user_input):
-        """Generate a response based on user input"""
-        if self.is_restricted_topic(user_input):
-            return ("I apologize, but I cannot provide information about that topic. "
-                   "I can only provide factual information about government schemes and aid programs. "
-                   "How can I help you with information about government welfare schemes?")
-
-        # Construct the full prompt
-        full_prompt = f"""
-        {self.base_context}
-        
-        User Query: {user_input}
-        
-        Provide a clear and structured response with relevant scheme details and application information.
-        If multiple schemes are relevant, list the most appropriate ones.
-        If the query is not about government schemes, politely redirect to scheme-related information.
-        """
-
         try:
+            full_prompt = f"""
+            {self.base_context}
+            User Query: {user_input}
+            Provide a clear and structured response with relevant scheme details.
+            """
             response = self.model.generate_content(full_prompt)
             return response.text
         except Exception as e:
-            return ("I apologize, but I encountered an error. Please try rephrasing your question "
-                   "about government schemes and benefits.")
+            return f"Error generating response: {str(e)}"
+    
 
-def run_chatbot():
-    # Initialize the chatbot with your API key
-    api_key = "AIzaSyCtw1QRk32_xwVJTuCD8onW4-mn2anxBX4"  # Replace with your actual API key
-    bot = GovSchemesBot(api_key)
-    
-    print("Government Schemes Assistant: Hello! I can help you with information about government schemes and aid programs. "
-          "What would you like to know? (Type 'exit' to end the conversation)")
-    
-    while True:
-        user_input = input("\nYou: ").strip()
-        
-        if user_input.lower() == 'exit':
-            print("\nGovernment Schemes Assistant: Thank you for using our service. Goodbye!")
-            break
-            
+# Initialize the chatbot
+bot = GovSchemesBot(api_key="AIzaSyCtw1QRk32_xwVJTuCD8onW4-mn2anxBX4")  # Replace with your API key
+
+@app.route('/')
+def home():
+    return """
+    <h1>Welcome to GovSchemes Chatbot</h1>
+    <p>Use POST /chat endpoint to interact with the bot</p>
+    """
+
+@app.route('/test')
+def test():
+    return jsonify({
+        "status": "success",
+        "message": "API is working correctly"
+    })
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    try:
+        user_input = request.json.get("message", "")
         response = bot.generate_response(user_input)
-        print(f"\nGovernment Schemes Assistant: {response}")
+        return jsonify({"response": response})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-if __name__ == "__main__":
-    run_chatbot()
+@app.route('/chat-interface')
+def chat_interface():
+    return render_template('chat.html')
+
+if __name__ == '__main__':
+    print("Starting Government Schemes Chatbot API...")
+    print("Available endpoints:")
+    print("  - / (GET): Help page")
+    print("  - /test (GET): Test endpoint")
+    print("  - /chat (POST): Chat endpoint")
+    app.run(debug=True, host='0.0.0.0', port=8000)
