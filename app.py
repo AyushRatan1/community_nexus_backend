@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import google.generativeai as genai
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -82,7 +83,7 @@ class GovSchemesBot:
     
 
 # Initialize the chatbot
-bot = GovSchemesBot(api_key="AIzaSyCtw1QRk32_xwVJTuCD8onW4-mn2anxBX4")  # Replace with your API key
+bot = GovSchemesBot(api_key=os.getenv('GOOGLE_API_KEY'))  # Replace with your API key
 
 @app.route('/')
 def home():
@@ -111,10 +112,10 @@ def chat():
 def chat_interface():
     return render_template('chat.html')
 
-if __name__ == '__main__':
-    print("Starting Government Schemes Chatbot API...")
-    print("Available endpoints:")
-    print("  - / (GET): Help page")
-    print("  - /test (GET): Test endpoint")
-    print("  - /chat (POST): Chat endpoint")
-    app.run(debug=True, host='0.0.0.0', port=8000)
+# if __name__ == '__main__':
+#     print("Starting Government Schemes Chatbot API...")
+#     print("Available endpoints:")
+#     print("  - / (GET): Help page")
+#     print("  - /test (GET): Test endpoint")
+#     print("  - /chat (POST): Chat endpoint")
+#     app.run(debug=True, host='0.0.0.0', port=8000)
