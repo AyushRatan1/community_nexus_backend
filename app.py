@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import google.generativeai as genai
 from flask_cors import CORS
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -21,9 +22,9 @@ class GovSchemesBot:
         4. Explain documentation requirements
         5. Provide information about benefits and assistance available
         6. All of these responses should be concise and clear. 
-        7. you should treat the user in a formal.
+        7. you should treat the user in a formal manner.
         8. you should act like you are talking to a person who is not aware of the schemes.
-        9. you should not act like you are  responsing to the prompt , you should act like you are responding to the real user.
+        9. you should not act like you are responding to a prompt, but like responding to a real user.
         
         Key areas you cover:
         - Education scholarships
@@ -41,13 +42,10 @@ class GovSchemesBot:
         - Scheme name
         - Eligibility criteria
         - Benefits offered
-        
         - Required documents
         
-        
         Do not provide:
-        - the data other than government schemes like teach me alegebra or other thing
-         like that its main function should be tellinga about aid and schemes 
+        - Data other than government schemes
         - Personal advice on eligibility
         - Guaranteed approval statements
         - Political opinions or commentary
@@ -55,17 +53,9 @@ class GovSchemesBot:
         """
         
         self.restricted_topics = [
-            "election",
-            "political party",
-            "voting advice",
-            "political opinions",
-            "government criticism",
-            "classified information",
-            "personal advice",
-            "legal advice",
-            "medical diagnosis",
-            "financial investment",
-            "academic help"
+            "election", "political party", "voting advice", "political opinions",
+            "government criticism", "classified information", "personal advice",
+            "legal advice", "medical diagnosis", "financial investment", "academic help"
         ]
 
     def generate_response(self, user_input):
@@ -76,10 +66,33 @@ class GovSchemesBot:
             Provide a clear and structured response with relevant scheme details.
             """
             response = self.model.generate_content(full_prompt)
-            return response.text
+            response_text = response.text
+
+            # Save the user input and response in a JSON file
+            self.save_conversation(user_input, response_text)
+
+            return response_text
         except Exception as e:
             return f"Error generating response: {str(e)}"
-    
+
+    def save_conversation(self, user_input, bot_response):
+        # Load existing data from the file, if any
+        try:
+            with open('conversations.json', 'r') as f:
+                conversations = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            conversations = []
+
+        # Add the new conversation to the list
+        conversation = {
+            'user_input': user_input,
+            'bot_response': bot_response
+        }
+        conversations.append(conversation)
+
+        # Save the updated conversations back to the file
+        with open('conversations.json', 'w') as f:
+            json.dump(conversations, f, indent=4)
 
 # Initialize the chatbot
 bot = GovSchemesBot(api_key="AIzaSyCtw1QRk32_xwVJTuCD8onW4-mn2anxBX4")  # Replace with your API key
