@@ -124,19 +124,22 @@ def test():
         "message": "API is working correctly"
     })
 
-@app.route('/chat', methods=['POST'])
+@app.route('/chat', methods=['GET', 'POST'])
 def chat():
-    try:
-        user_input = request.json.get("message", "")
-        if not user_input:
-            return jsonify({"error": "No message provided"}), 400
+    if request.method == 'GET':
+        # For GET requests, return the chat interface
+        return render_template('chat.html')
+    elif request.method == 'POST':
+        try:
+            user_input = request.json.get("message", "")
+            if not user_input:
+                return jsonify({"error": "No message provided"}), 400
 
-        response = bot.generate_response(user_input)
-        return jsonify({"response": response})
-    except Exception as e:
-        logging.error(f"Error in /chat endpoint: {str(e)}")
-        return jsonify({"error": str(e)}), 500
-
+            response = bot.generate_response(user_input)
+            return jsonify({"response": response})
+        except Exception as e:
+            logging.error(f"Error in /chat endpoint: {str(e)}")
+            return jsonify({"error": str(e)}), 500
 @app.route('/chat-interface')
 def chat_interface():
     return render_template('chat.html')

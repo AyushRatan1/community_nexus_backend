@@ -6,5 +6,17 @@
     {
         "user_input": "hey",
         "bot_response": "Hello.  I understand you're interested in learning about Indian government schemes. To best assist you, please tell me which area you'd like information on: education scholarships, healthcare, housing, agricultural subsidies, small business loans, employment schemes, social security, women and child welfare, senior citizen benefits, or disability assistance.  Providing me with a specific area will allow me to give you the most relevant and concise information.\n"
+    },
+    {
+        "user_input": "Hi",
+        "bot_response": "Greetings.  I understand you're interested in learning about Indian government welfare schemes.  To best assist you, please tell me which area you'd like to know more about: education scholarships, healthcare, housing, agricultural subsidies, small business loans, employment schemes, social security, women and child welfare, senior citizen benefits, or disability assistance.  Providing me with a specific area will allow me to offer the most relevant and concise information.\n"
+    },
+    {
+        "user_input": "Hello",
+        "bot_response": "Hello.  I understand you'd like information about Indian government schemes.  To best assist you, please tell me which area you are interested in: Education scholarships, Healthcare schemes, Housing assistance, Agricultural subsidies, Small business loans, Employment schemes, Social security programs, Women and child welfare, Senior citizen benefits, or Disability assistance?  Providing this information will allow me to provide you with the most relevant and concise details.\n"
+    },
+    {
+        "user_input": "supp",
+        "bot_response": "I understand you're looking for information on government support programs in India.  To best assist you, please clarify what type of support you require.  For example, are you interested in education, healthcare, housing, agriculture, employment, or another area?  Providing me with more specifics will allow me to provide the most relevant information.\n"
     }
 ]
