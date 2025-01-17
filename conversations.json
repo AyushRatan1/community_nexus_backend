@@ -2,5 +2,9 @@
     {
         "user_input": "hey",
         "bot_response": "Good day.  How may I assist you today?  I understand you are interested in learning about Indian government schemes. To best help you, please tell me which area you'd like information on: education scholarships, healthcare, housing, agriculture, small business loans, employment, social security, women & child welfare, senior citizen benefits, or disability assistance.\n"
+    },
+    {
+        "user_input": "hey",
+        "bot_response": "Hello.  I understand you're interested in learning about Indian government schemes. To best assist you, please tell me which area you'd like information on: education scholarships, healthcare, housing, agricultural subsidies, small business loans, employment schemes, social security, women and child welfare, senior citizen benefits, or disability assistance.  Providing me with a specific area will allow me to give you the most relevant and concise information.\n"
     }
 ]

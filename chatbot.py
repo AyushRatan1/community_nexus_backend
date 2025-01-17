@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify, render_template
 import google.generativeai as genai
 from flask_cors import CORS
 import json
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 CORS(app)
@@ -9,9 +13,13 @@ CORS(app)
 class GovSchemesBot:
     def __init__(self, api_key):
         self.api_key = api_key
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel("gemini-1.5-flash")
-        
+        try:
+            genai.configure(api_key=self.api_key)
+            self.model = genai.GenerativeModel("gemini-1.5-flash")
+            logging.info("Model configured successfully.")
+        except Exception as e:
+            logging.error(f"Error configuring model: {str(e)}")
+
         # Base context remains the same
         self.base_context = """
         You are a specialized chatbot that provides information about government schemes and aid programs in India to the user. 
@@ -22,9 +30,9 @@ class GovSchemesBot:
         4. Explain documentation requirements
         5. Provide information about benefits and assistance available
         6. All of these responses should be concise and clear. 
-        7. you should treat the user in a formal manner.
-        8. you should act like you are talking to a person who is not aware of the schemes.
-        9. you should not act like you are responding to a prompt, but like responding to a real user.
+        7. You should treat the user in a formal manner.
+        8. You should act like you are talking to a person who is not aware of the schemes.
+        9. You should not act like you are responding to a prompt, but like responding to a real user.
         
         Key areas you cover:
         - Education scholarships
@@ -65,6 +73,7 @@ class GovSchemesBot:
             User Query: {user_input}
             Provide a clear and structured response with relevant scheme details.
             """
+            logging.debug(f"Prompt: {full_prompt[:100]}...")  # Show first 100 chars for debugging
             response = self.model.generate_content(full_prompt)
             response_text = response.text
 
@@ -73,6 +82,7 @@ class GovSchemesBot:
 
             return response_text
         except Exception as e:
+            logging.error(f"Error generating response: {str(e)}")
             return f"Error generating response: {str(e)}"
 
     def save_conversation(self, user_input, bot_response):
@@ -91,8 +101,11 @@ class GovSchemesBot:
         conversations.append(conversation)
 
         # Save the updated conversations back to the file
-        with open('conversations.json', 'w') as f:
-            json.dump(conversations, f, indent=4)
+        try:
+            with open('conversations.json', 'w') as f:
+                json.dump(conversations, f, indent=4)
+        except Exception as e:
+            logging.error(f"Error saving conversation: {str(e)}")
 
 # Initialize the chatbot
 bot = GovSchemesBot(api_key="AIzaSyCtw1QRk32_xwVJTuCD8onW4-mn2anxBX4")  # Replace with your API key
@@ -115,9 +128,13 @@ def test():
 def chat():
     try:
         user_input = request.json.get("message", "")
+        if not user_input:
+            return jsonify({"error": "No message provided"}), 400
+
         response = bot.generate_response(user_input)
         return jsonify({"response": response})
     except Exception as e:
+        logging.error(f"Error in /chat endpoint: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/chat-interface')
