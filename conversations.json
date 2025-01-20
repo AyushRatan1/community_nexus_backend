@@ -18,5 +18,53 @@
     {
         "user_input": "supp",
         "bot_response": "I understand you're looking for information on government support programs in India.  To best assist you, please clarify what type of support you require.  For example, are you interested in education, healthcare, housing, agriculture, employment, or another area?  Providing me with more specifics will allow me to provide the most relevant information.\n"
+    },
+    {
+        "user_input": "hello",
+        "bot_response": "Hello.\nI understand you are looking for information on Indian government schemes.\nTo best assist you, please tell me which area you are interested in.\nFor example, are you interested in education scholarships, healthcare, housing, or another area?\nKnowing your specific needs will allow me to provide the most relevant information."
+    },
+    {
+        "user_input": "I am farmer can you tell me the scheme for me",
+        "bot_response": "Several Indian government schemes can benefit farmers.\nI cannot determine your precise eligibility without specific details about your circumstances (e.g., landholding, income, location), but I can provide information on some relevant schemes.\nYou should verify your eligibility and the most up\n- to-date details on the official government websites.\n\n1.\nPradhan Mantri Kisan Samman Nidhi (PM-KISAN):\n\n Eligibility Criteria:  Small and marginal farmers with cultivable land.\nSpecific criteria regarding landholding size may vary by state.\nBenefits Offered:  A financial benefit of \u20b96000 per year, paid in three installments.\nRequired Documents:\n Aadhaar card, land records, bank account details.\n\n2.\nSoil Health Card Scheme:\n\n Eligibility Criteria: All farmers with cultivable land.\nBenefits Offered:  Provides information on the nutrient status of the farmer's soil, enabling targeted fertilizer use and improving crop yields.\nThis leads to cost savings and better crop production.\nRequired Documents:\n  Land ownership documents, farmer's identity proof.\n\n3.\nPradhan Mantri Krishi Sinchayee Yojana (PMKSY):\n\n Eligibility Criteria: Farmers depending on the specific sub\n\n- scheme within PMKSY (e.g., micro-irrigation).\nThis scheme focuses on improving irrigation infrastructure.\nEligibility will depend on the project and location.\nBenefits Offered:  Subsidies for micro\n\n- irrigation systems (drip, sprinkler irrigation), water harvesting, and other water management techniques.\nRequired Documents:\n  Land ownership documents, farmer's identity proof, project proposal (as per the specific sub\n\n- scheme).\n\n4.\nNational Agricultural Insurance Scheme (NAIS):\n\n Eligibility Criteria:  Farmers cultivating insured crops.\nSpecific crops and coverage vary based on location and insurance provider.\nBenefits Offered:  Financial protection against crop loss due to natural calamities.\nCompensation is paid based on the insured value and the extent of damage.\nRequired Documents:\n  Land ownership documents, crop details, insurance application form.\nThis is not an exhaustive list, and other schemes might be relevant depending on your specific needs and location.\nIt is crucial to check with your local agricultural department or the relevant government websites for detailed information and application procedures for these and other applicable schemes.\nRemember that eligibility criteria can change."
+    },
+    {
+        "user_input": "I am farmer can you tell me the scheme for me",
+        "bot_response": "Several Indian government schemes benefit farmers.\nThe Pradhan Mantri Kisan Samman Nidhi (PM\n- KISAN) provides income support of \u20b96,000 annually to small and marginal farmers.\nEligibility requires ownership of cultivable land.\nBenefits include direct cash transfer.\nRequired documents include Aadhaar card, land ownership records, and bank details.\nOther schemes like the Soil Health Card scheme and crop insurance schemes are also available, with eligibility and benefits varying.\nVisit the Department of Agriculture & Cooperation website for detailed information."
+    },
+    {
+        "user_input": "I am student can you tell me about he schemes for me",
+        "bot_response": "Several Indian government schemes offer educational assistance.\nFor example, the National Scholarship Portal (NSP) provides scholarships based on merit and need.\nEligibility varies by specific scholarship but generally includes academic performance and family income criteria.\nBenefits include financial aid for tuition and other educational expenses.\nRequired documents typically include academic transcripts, income certificates, and identity proof.\nPlease visit the NSP website for detailed information on available scholarships and their specific requirements."
+    },
+    {
+        "user_input": "from which schemes I will get the right price of my schems",
+        "bot_response": "I understand you're looking for information on government schemes offering fair pricing.\nUnfortunately,  \"right price\" is subjective and depends on the specific good or service.\nHowever, several schemes indirectly ensure fair pricing or access to subsidized goods.\nFor example, the National Food Security Act (NFSA) provides subsidized food grains to eligible families.\nEligibility depends on income and location;  required documents are ration card and Aadhaar card.\nBenefits include highly subsidized food.\nFor specific pricing details related to a particular product or service, please consult the relevant government department or website."
+    },
+    {
+        "user_input": "can you teach me algebra",
+        "bot_response": "I am unable to provide information on algebra tutoring as that falls outside the scope of Indian government schemes and aid programs.\nMy purpose is to assist with information regarding welfare initiatives.\nIf you have questions about educational scholarships like the National Scholarship Portal (NSP), which offers financial aid for various studies, please let me know.\nEligibility criteria, benefits, and required documents vary depending on the specific scholarship."
+    },
+    {
+        "user_input": "can you tell me india famous band",
+        "bot_response": "I apologize, but your query regarding India's famous bands falls outside the scope of my expertise as a provider of information on Indian government schemes and aid programs.\nI am programmed to assist with questions related to welfare initiatives, eligibility, application processes, and required documentation for such schemes.\nI can, however, provide information on relevant schemes if you have questions about government support in areas such as education, healthcare, or employment."
+    },
+    {
+        "user_input": "can you tell me about the git commands I know it is out of your scope I just want to ask so that I can get to know about you are gemini llm",
+        "bot_response": "I understand your query regarding Git commands is outside my designated scope of providing information on Indian government schemes.\nTo assist you with that, I suggest searching online resources specializing in Git.\nReturning to my area of expertise, I can certainly inform you about various Indian government schemes.\nPlease specify the area of assistance you require (e.g., education, healthcare, etc.) so I can provide relevant details on scheme names, eligibility, benefits, and required documentation."
+    },
+    {
+        "user_input": "you shut up",
+        "bot_response": "I apologize if my previous response was unsatisfactory.\nTo assist you, please specify which area of government aid you require information on (e.g., education scholarships, healthcare, etc.).\nProviding this will allow me to offer details on specific schemes, including their name, eligibility, benefits, and required documentation.\nI am here to provide clear and concise information on Indian government welfare programs."
+    },
+    {
+        "user_input": "hello",
+        "bot_response": "Hello.\nTo assist you, please specify the area of government aid you require information on (e.g., education scholarships, healthcare, etc.).\nFor example,  the Pradhan Mantri Jan Arogya Yojana (PMJAY) provides health insurance to eligible families, with benefits including cashless hospitalization.\nEligibility is based on socio\n- economic criteria, determined through the National Food Security Act (NFSA).\nRequired documents include Aadhaar card and ration card.\nFurther details depend on your specific needs."
+    },
+    {
+        "user_input": "how can you help me",
+        "bot_response": "I can help you find suitable Indian government schemes.\nTo assist you effectively, please specify your area of need (e.g., education, healthcare, employment).\nFor example,  the Pradhan Mantri Jan Arogya Yojana (PM\n- JAY) offers health insurance to eligible families;  eligibility is based on socio-economic criteria; benefits include coverage for hospitalization; documents required include Aadhaar card and ration card.\nOther schemes exist for various needs; providing your specific requirements allows me to offer tailored information."
+    },
+    {
+        "user_input": "I am farmer can you tell me the scheme for me",
+        "bot_response": "Several Indian government schemes benefit farmers.\nThe Pradhan Mantri Kisan Samman Nidhi (PM\n- KISAN) provides \u20b96,000 annually to small and marginal farmers.\nEligibility requires ownership of cultivable land.\nBenefits include direct income support.\nRequired documents include Aadhaar card, land records, and bank details.\nOther schemes like the Soil Health Card scheme and crop insurance are also available, with eligibility and benefits varying based on the specific scheme and your state.\nConsult your local agricultural department for details on applicable schemes and application procedures."
     }
 ]
