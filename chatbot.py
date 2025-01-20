@@ -3,6 +3,7 @@ import google.generativeai as genai
 from flask_cors import CORS
 import json
 import logging
+import re
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -33,7 +34,7 @@ class GovSchemesBot:
         7. You should treat the user in a formal manner.
         8. You should act like you are talking to a person who is not aware of the schemes.
         9. You should not act like you are responding to a prompt, but like responding to a real user.
-        
+        10. Response should be a 70 words.
         Key areas you cover:
         - Education scholarships
         - Healthcare schemes
@@ -65,6 +66,32 @@ class GovSchemesBot:
             "government criticism", "classified information", "personal advice",
             "legal advice", "medical diagnosis", "financial investment", "academic help"
         ]
+    
+    def clean_response(self, text):
+        # Remove markdown formatting
+        text = re.sub(r'\*+', '', text)
+        text = re.sub(r'#+\s*', '', text)
+        text = re.sub(r'`+', '', text)
+        
+        # Format section headers with proper spacing
+        sections = ['Overview', 'Benefits', 'Eligibility', 'Requirements', 'Steps to Apply', 'Required Documents']
+        for section in sections:
+            text = re.sub(f"{section}:", f"\n\n{section}:\n", text)
+        
+        # Format bullet points and numbered lists
+        text = re.sub(r'(\d+\.|\-|\•)\s*([^\n]+)', r'\n\1 \2', text)
+        
+        # Add line breaks after sentences within sections
+        text = re.sub(r'([.!?])\s+([^-\n])', r'\1\n\2', text)
+        
+        # Format lists with proper indentation
+        text = re.sub(r'\n((?:\d+\.|\-|\•).*(?:\n(?!\d+\.|\-|\•).*)*)', r'\n\1\n', text)
+        
+        # Clean up multiple line breaks
+        text = re.sub(r'\n{3,}', '\n\n', text)
+        text = text.strip()
+        
+        return text
 
     def generate_response(self, user_input):
         try:
@@ -76,15 +103,18 @@ class GovSchemesBot:
             logging.debug(f"Prompt: {full_prompt[:100]}...")  # Show first 100 chars for debugging
             response = self.model.generate_content(full_prompt)
             response_text = response.text
+            
+            # Clean the response text
+            cleaned_response = self.clean_response(response_text)
+            
+            # Save the user input and cleaned response in a JSON file
+            self.save_conversation(user_input, cleaned_response)
 
-            # Save the user input and response in a JSON file
-            self.save_conversation(user_input, response_text)
-
-            return response_text
+            return cleaned_response
         except Exception as e:
             logging.error(f"Error generating response: {str(e)}")
             return f"Error generating response: {str(e)}"
-
+    
     def save_conversation(self, user_input, bot_response):
         # Load existing data from the file, if any
         try:
